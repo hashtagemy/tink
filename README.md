@@ -1,7 +1,3 @@
-<p align="center">
-  <img src="Tink.svg" alt="Tink Logo" width="120" />
-</p>
-
 <h1 align="center">Tink — Speak. Learn. Grow.</h1>
 
 <p align="center">
