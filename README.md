@@ -209,13 +209,6 @@ tink/
 5. **Tool Calls** — The agent calls `show_flashcard` to display concepts, `quiz_student` to test knowledge, and `lesson_complete` to end the lesson
 6. **Progress Saved** — Flashcards, quiz results, and lesson summaries persist in the browser for review
 
-## Hackathon Submission
-
-- **Category:** Live Agents
-- **Gemini Model:** Gemini 2.5 Flash Native Audio (`gemini-2.5-flash-native-audio-preview-09-2025`)
-- **Agent Framework:** Google ADK
-- **Google Cloud Service:** Cloud Run (backend deployment)
-
 ## License
 
 Apache License 2.0 — see [LICENSE](LICENSE) for details.
