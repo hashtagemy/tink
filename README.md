@@ -203,7 +203,7 @@ tink/
 ## How It Works
 
 1. **Topic Selection** — Student enters a topic and difficulty level
-2. **Curriculum Generation** — Gemini generates a structured lesson plan (5-10 lessons with concepts)
+2. **Curriculum Generation** — Gemini generates a structured lesson plan using Google Search Grounding for reliable sources
 3. **Voice Session** — Browser connects via WebSocket; mic audio (16kHz PCM) streams to backend
 4. **ADK Agent** — Backend runs a Google ADK agent with the Gemini Live model, forwarding audio bidirectionally
 5. **Tool Calls** — The agent calls `show_flashcard` to display concepts, `quiz_student` to test knowledge, and `lesson_complete` to end the lesson
