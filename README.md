@@ -35,7 +35,6 @@ You can interrupt Tink anytime (barge-in), ask follow-up questions, or request r
 - Python 3.11+
 - Node.js 20+
 - A [Google AI Studio](https://aistudio.google.com/) API key (Gemini)
-- [Google Cloud SDK](https://cloud.google.com/sdk/docs/install) (for Cloud Run deployment)
 
 ### 1. Clone the repository
 
@@ -66,17 +65,7 @@ python main.py
 
 The backend runs on `http://localhost:8000`.
 
-### 3. Deploy Backend to Google Cloud Run
-
-The backend is deployed to Google Cloud Run. Use the included deploy script:
-
-```bash
-./deploy.sh
-```
-
-This deploys the backend to Cloud Run. The frontend is pre-configured to connect to the Cloud Run URL via `tink/frontend/.env.local`.
-
-### 4. Frontend Setup
+### 3. Frontend Setup
 
 ```bash
 cd tink/frontend
@@ -90,13 +79,23 @@ npm run dev
 
 The frontend runs on `http://localhost:3000` and connects to the Cloud Run backend automatically.
 
-### 5. Use the app
+### 4. Use the app
 
 1. Open `http://localhost:3000` in your browser
 2. Enter your name and choose a topic
 3. Select a difficulty level — Tink generates a curriculum
 4. Click a lesson to start a voice session
 5. Allow microphone access and start learning!
+
+### Cloud Run Deployment
+
+To deploy the backend to Google Cloud Run (requires [Google Cloud SDK](https://cloud.google.com/sdk/docs/install)):
+
+```bash
+./deploy.sh
+```
+
+The frontend can connect to the Cloud Run backend via `tink/frontend/.env.local`.
 
 ### Environment Variables
 
