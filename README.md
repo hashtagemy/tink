@@ -121,14 +121,14 @@ NEXT_PUBLIC_API_URL=https://your-cloud-run-url.run.app
 ## Architecture
 
 ```mermaid
-flowchart LR
-    User([User]) -- Voice & Text --> FE[Frontend\nNext.js + Zustand]
-    FE -- WebSocket\nAudio + JSON --> BE[Backend\nFastAPI\nCloud Run]
-    FE -- REST --> BE
-    BE -- ADK Agent --> Gemini[Gemini 2.5 Flash\nNative Audio]
-    BE -- Curriculum\nGeneration --> Search[Google Search\nGrounding]
-    Gemini -- Voice + Tool Calls --> BE
-    Search -- Reliable Sources --> BE
+flowchart TD
+    User([User]) -- "Voice & Text" --> FE["Frontend<br/>Next.js + Zustand"]
+    FE -- "WebSocket<br/>Audio + JSON" --> BE["Backend · FastAPI<br/>Google Cloud Run"]
+    FE -- "REST API" --> BE
+    BE -- "ADK Agent" --> Gemini["Gemini 2.5 Flash<br/>Native Audio"]
+    BE -- "Curriculum Generation" --> Search["Google Search<br/>Grounding"]
+    Gemini -- "Voice + Tool Calls" --> BE
+    Search -- "Reliable Sources" --> BE
 ```
 
 ## Tech Stack
