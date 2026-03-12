@@ -121,14 +121,43 @@ NEXT_PUBLIC_API_URL=https://your-cloud-run-url.run.app
 ## Architecture
 
 ```mermaid
-flowchart TD
-    User([User]) -- "Voice & Text" --> FE["Frontend<br/>Next.js + Zustand"]
-    FE -- "WebSocket<br/>Audio + JSON" --> BE["Backend · FastAPI<br/>Google Cloud Run"]
-    FE -- "REST API" --> BE
-    BE -- "ADK Agent" --> Gemini["Gemini 2.5 Flash<br/>Native Audio"]
-    BE -- "Curriculum Generation" --> Search["Google Search<br/>Grounding"]
-    Gemini -- "Voice + Tool Calls" --> BE
-    Search -- "Reliable Sources" --> BE
+sequenceDiagram
+    participant S as 🧑‍🎓 Student
+    participant B as 🌐 Browser
+    participant F as ⚡ FastAPI
+    participant A as 🔧 ADK Agent
+    participant G as 🤖 Gemini Live
+    participant GS as 🔍 Google Search
+
+    Note over S,GS: 1. Session Setup (with Grounding)
+    S->>B: Select topic & lesson
+    B->>F: POST /api/curriculum/generate
+    F->>G: Research topic (Text API + Grounding)
+    G->>GS: Search for reliable sources
+    GS-->>G: Authoritative results
+    G-->>F: Grounded research summary
+    F->>G: Generate curriculum from research
+    G-->>F: Source-backed lesson plan JSON
+    F-->>B: Curriculum response
+
+    Note over S,G: 2. Voice Connection
+    B->>F: WebSocket /api/live/{session_id}
+    F->>A: Create ADK session
+    A->>G: Open audio stream
+    G-->>B: ready
+
+    Note over S,G: 3. Teaching Loop
+    S->>B: 🎤 Speaks
+    B->>F: Audio chunks (PCM 16kHz)
+    F->>A: Forward audio
+    A->>G: Stream to Gemini
+    G-->>A: Audio response + tool calls
+    A-->>F: Events
+    F-->>B: 🔊 Audio + 🃏 Flashcards + ❓ Quizzes
+
+    Note over S,G: 4. Lesson Complete
+    A->>F: lesson_complete(summary)
+    F-->>B: Save notes & quiz history
 ```
 
 ## Tech Stack
