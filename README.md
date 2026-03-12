@@ -121,27 +121,14 @@ NEXT_PUBLIC_API_URL=https://your-cloud-run-url.run.app
 ## Architecture
 
 ```mermaid
-graph TD
-    subgraph Frontend["Frontend — Next.js + React + Zustand"]
-        Home["Home<br/>(Topic Select)"] --> Roadmap["Roadmap<br/>(Curriculum)"]
-        Roadmap --> Learn["Learn<br/>(Voice Session)"]
-        Learn --> Notes["Notes<br/>(Review)"]
-    end
-
-    subgraph Backend["Backend — FastAPI on Google Cloud Run"]
-        REST["REST API<br/>POST /api/curriculum/generate<br/>POST /api/session/create<br/>GET /api/session/{id}"]
-        WS["WebSocket /api/live/{id}"]
-        subgraph ADK["Google ADK Runner"]
-            Agent["Agent: Tink Tutor"]
-            Tools["Tools:<br/>• show_flashcard<br/>• quiz_student<br/>• lesson_complete"]
-        end
-        WS --> ADK
-    end
-
-    Learn -- "WebSocket<br/>(Audio + JSON)" --> WS
-    Home -- "REST" --> REST
-    REST -- "Grounded curriculum" --> Search["Google Search<br/>Grounding"]
-    ADK -- "Real-time voice" --> Gemini["Gemini 2.5 Flash<br/>Native Audio<br/><br/>• Real-time voice I/O<br/>• Barge-in support<br/>• Tool calling"]
+flowchart LR
+    User([User]) -- Voice & Text --> FE[Frontend\nNext.js + Zustand]
+    FE -- WebSocket\nAudio + JSON --> BE[Backend\nFastAPI\nCloud Run]
+    FE -- REST --> BE
+    BE -- ADK Agent --> Gemini[Gemini 2.5 Flash\nNative Audio]
+    BE -- Curriculum\nGeneration --> Search[Google Search\nGrounding]
+    Gemini -- Voice + Tool Calls --> BE
+    Search -- Reliable Sources --> BE
 ```
 
 ## Tech Stack
