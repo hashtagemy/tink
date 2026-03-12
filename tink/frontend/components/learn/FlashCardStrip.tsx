@@ -62,7 +62,7 @@ export default function FlashCardStrip() {
                     }}
                   >
                     <p className="text-[10px] uppercase tracking-[0.15em] text-[#F59E0B]/60 font-body mb-3">
-                      Kavram {flashcards.length}
+                      Concept {flashcards.length}
                     </p>
                     <h2 className="text-2xl font-bold text-[#FFF8ED] font-display leading-snug">
                       {latestCard.front}

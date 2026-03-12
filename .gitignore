@@ -40,3 +40,7 @@ next-env.d.ts
 
 # Claude
 .claude/
+
+# Personal reference docs
+hackathon.md
+GEMINI_LIVE_API_RESEARCH.md

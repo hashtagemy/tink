@@ -95,7 +95,7 @@ function extractContext(fullText: string, conceptTitle: string): string | null {
  * Fallback overview when agent doesn't provide a summary.
  */
 function buildDefaultOverview(concepts: ConceptDetail[]): string {
-  if (concepts.length === 0) return "Bu ders tamamlandı.";
+  if (concepts.length === 0) return "This lesson is complete.";
   const titles = concepts.map((c) => c.title).join(", ");
-  return `Bu derste ${concepts.length} kavram işlendi: ${titles}.`;
+  return `This lesson covered ${concepts.length} concepts: ${titles}.`;
 }

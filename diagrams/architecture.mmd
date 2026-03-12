@@ -1,0 +1,31 @@
+flowchart LR
+    subgraph Client["Browser"]
+        direction TB
+        UI["Next.js Frontend\nReact + TypeScript"]
+        Mic["Microphone"]
+        Speaker["Speaker"]
+    end
+
+    subgraph Cloud["Google Cloud Run"]
+        direction TB
+        API["FastAPI Backend"]
+        ADK["Google ADK\nTink Tutor Agent"]
+    end
+
+    subgraph Gemini["Google AI"]
+        direction TB
+        Live["Gemini 2.5 Flash\nNative Audio"]
+        Text["Gemini 2.5 Flash\nText"]
+    end
+
+    Mic -- "16kHz PCM Audio" --> API
+    API -- "24kHz PCM Audio" --> Speaker
+    UI <-- "REST API" --> API
+    UI <-- "WebSocket" --> API
+    API <--> ADK
+    ADK <-- "Streaming Audio" --> Live
+    API -- "Curriculum Generation" --> Text
+
+    style Client fill:#FFF7ED,stroke:#F59E0B,stroke-width:2px,color:#000
+    style Cloud fill:#F0FDF4,stroke:#22C55E,stroke-width:2px,color:#000
+    style Gemini fill:#EFF6FF,stroke:#3B82F6,stroke-width:2px,color:#000

@@ -113,7 +113,7 @@ function LessonSummaryView({ data }: { data: LessonSummaryData }) {
           <div className="flex items-center gap-2 mb-3">
             <div className="h-px flex-1" style={{ background: "rgba(255,255,255,0.06)" }} />
             <span className="text-[10px] text-white/30 font-display uppercase tracking-wider">
-              Kavramlar
+              Concepts
             </span>
             <div className="h-px flex-1" style={{ background: "rgba(255,255,255,0.06)" }} />
           </div>
