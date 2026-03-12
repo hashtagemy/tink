@@ -77,7 +77,7 @@ npm install
 npm run dev
 ```
 
-The frontend runs on `http://localhost:3000` and connects to the Cloud Run backend automatically.
+The frontend runs on `http://localhost:3000` and connects to the local backend automatically.
 
 ### 4. Use the app
 
@@ -95,7 +95,11 @@ To deploy the backend to Google Cloud Run (requires [Google Cloud SDK](https://c
 ./deploy.sh
 ```
 
-The frontend can connect to the Cloud Run backend via `tink/frontend/.env.local`.
+To point the frontend to Cloud Run instead of localhost, create `tink/frontend/.env.local`:
+
+```
+NEXT_PUBLIC_API_URL=https://your-cloud-run-url.run.app
+```
 
 ### Environment Variables
 
