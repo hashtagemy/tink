@@ -4,9 +4,9 @@
 
 set -e
 
-PROJECT_ID="tink-tudor"
+PROJECT_ID="${GCP_PROJECT_ID:?Set GCP_PROJECT_ID environment variable}"
 SERVICE_NAME="tink-backend"
-REGION="us-central1"
+REGION="${GCP_REGION:-us-central1}"
 SOURCE_DIR="./tink/backend"
 
 echo "Deploying Tink backend to Google Cloud Run..."
@@ -23,4 +23,3 @@ gcloud run deploy "$SERVICE_NAME" \
 
 echo ""
 echo "Deployment complete!"
-echo "Service URL: https://$SERVICE_NAME-311491562311.$REGION.run.app"
