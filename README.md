@@ -163,7 +163,7 @@ flowchart TD
 tink/
 ├── README.md
 ├── Tink.svg                          # Logo
-├── hackathon.md                      # Challenge requirements
+├── deploy.sh                         # Cloud Run deploy script
 │
 └── tink/
     ├── backend/
