@@ -4,7 +4,7 @@ import { useEffect, useRef, useCallback } from "react";
 import { useLearnStore } from "@/lib/learnStore";
 
 const WS_BASE = (
-  process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000"
+  process.env.NEXT_PUBLIC_API_URL || "https://tink-backend-311491562311.us-central1.run.app"
 ).replace(/^http/, "ws");
 
 /** Convert ArrayBuffer to base64. */
