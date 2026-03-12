@@ -1,4 +1,8 @@
-<h1 align="center">🧡 Tink — Speak. Learn. Grow.</h1>
+<p align="center">
+  <img src="Tink.svg" alt="Tink Logo" width="120" />
+</p>
+
+<h1 align="center">Tink — Speak. Learn. Grow.</h1>
 
 <p align="center">
   An AI-powered voice tutoring platform that teaches any topic through real-time conversation, flashcards, and quizzes — powered by Gemini 2.5 Flash Native Audio and Google ADK.
