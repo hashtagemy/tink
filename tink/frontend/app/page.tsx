@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { useRoadmapStore } from "@/lib/roadmapStore";
+import { useHydration } from "@/lib/useHydration";
 import TopicCard from "@/components/TopicCard";
 
 const exampleTopics = [
@@ -251,6 +252,7 @@ function HomeMascot() {
 
 export default function Home() {
   const router = useRouter();
+  const hydrated = useHydration();
   const topics = useRoadmapStore((s) => s.topics);
   const createTopic = useRoadmapStore((s) => s.createTopic);
   const deleteTopic = useRoadmapStore((s) => s.deleteTopic);
@@ -259,6 +261,13 @@ export default function Home() {
   const [name, setName] = useState("");
   const [topic, setTopic] = useState("");
   const [error, setError] = useState("");
+
+  // Wait for Zustand persist hydration to avoid SSR mismatch
+  useEffect(() => {
+    if (hydrated && topics.length > 0 && topics[0].playerName) {
+      setName(topics[0].playerName);
+    }
+  }, [hydrated, topics]);
 
   const handleStart = () => {
     if (topics.length > 0 && topics[0].playerName) {

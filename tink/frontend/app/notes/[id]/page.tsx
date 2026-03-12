@@ -4,6 +4,7 @@ import { use, useState } from "react";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { useRoadmapStore } from "@/lib/roadmapStore";
+import { useHydration } from "@/lib/useHydration";
 import type { DifficultyLevel } from "@/lib/types";
 
 const DIFF_LABELS: Record<DifficultyLevel, { label: string; color: string }> = {
@@ -19,6 +20,7 @@ export default function NotesPage({
 }) {
   const { id } = use(params);
   const router = useRouter();
+  const hydrated = useHydration();
   const topic = useRoadmapStore((s) => s.getTopic(id));
   const [flippedCards, setFlippedCards] = useState<Set<string>>(new Set());
 
@@ -30,6 +32,8 @@ export default function NotesPage({
       return next;
     });
   };
+
+  if (!hydrated) return null;
 
   if (!topic) {
     return (

@@ -16,7 +16,7 @@ export default function TranscriptPanel() {
   const lastSystem = systemMessages.length > 0 ? systemMessages[systemMessages.length - 1] : null;
 
   return (
-    <div className="px-8 py-3 min-h-[60px] flex flex-col items-center justify-end w-full">
+    <div className="px-4 py-2 flex flex-col items-center justify-start w-full max-w-[280px]">
       {!lastTinkMsg && status === "ready" && (
         <p className="text-white/25 text-sm font-body text-center">
           Tink is ready! Start speaking to begin your lesson.
@@ -52,7 +52,7 @@ export default function TranscriptPanel() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.3 }}
-            className="text-sm text-white/55 font-body text-center leading-relaxed max-w-4xl w-full"
+            className="text-sm text-[#FDE68A]/80 font-body text-center leading-relaxed w-full"
           >
             {lastTinkMsg.text}
           </motion.p>

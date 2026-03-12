@@ -5,6 +5,7 @@ import { useParams, useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { api } from "@/lib/api";
 import { useRoadmapStore } from "@/lib/roadmapStore";
+import { useHydration } from "@/lib/useHydration";
 import type { DifficultyLevel } from "@/lib/types";
 import DifficultyCard from "@/components/roadmap/DifficultyCard";
 import LessonRoadmapCard from "@/components/roadmap/LessonRoadmapCard";
@@ -30,6 +31,7 @@ function RoadmapPageInner() {
   const params = useParams();
   const router = useRouter();
   const topicId = params.topicId as string;
+  const hydrated = useHydration();
 
   const topic = useRoadmapStore((s) => s.getTopic(topicId));
   const setTierLessons = useRoadmapStore((s) => s.setTierLessons);
@@ -45,7 +47,7 @@ function RoadmapPageInner() {
     }
   }, [topic, router]);
 
-  if (!topic) return null;
+  if (!hydrated || !topic) return null;
 
   const activeDiff = topic.activeDifficulty;
   const activeTier = activeDiff ? topic.tiers[activeDiff] : null;

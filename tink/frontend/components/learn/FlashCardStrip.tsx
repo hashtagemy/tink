@@ -24,7 +24,7 @@ export default function FlashCardStrip() {
     : latestCard!.id;
 
   return (
-    <div className="w-full max-w-lg mx-auto px-4">
+    <div className="w-full max-w-2xl mx-auto px-4">
       <AnimatePresence mode="wait">
         <motion.div
           key={currentKey}
@@ -52,7 +52,7 @@ export default function FlashCardStrip() {
                 >
                   {/* Front */}
                   <div
-                    className="rounded-2xl px-8 py-10"
+                    className="rounded-2xl px-10 py-14"
                     style={{
                       backfaceVisibility: "hidden",
                       background: "rgba(255,255,255,0.05)",
@@ -61,18 +61,18 @@ export default function FlashCardStrip() {
                       display: latestCard.isFlipped ? "none" : "block",
                     }}
                   >
-                    <p className="text-[10px] uppercase tracking-[0.15em] text-[#F59E0B]/60 font-body mb-3">
+                    <p className="text-xs uppercase tracking-[0.15em] text-[#F59E0B]/60 font-body mb-4">
                       Concept {flashcards.length}
                     </p>
-                    <h2 className="text-2xl font-bold text-[#FFF8ED] font-display leading-snug">
+                    <h2 className="text-3xl font-bold text-[#FFF8ED] font-display leading-snug">
                       {latestCard.front}
                     </h2>
-                    <p className="text-[10px] text-white/25 mt-4 font-body">tap to flip</p>
+                    <p className="text-xs text-white/25 mt-5 font-body">tap to flip</p>
                   </div>
 
                   {/* Back */}
                   <div
-                    className="rounded-2xl px-8 py-10"
+                    className="rounded-2xl px-10 py-14"
                     style={{
                       backfaceVisibility: "hidden",
                       transform: "rotateY(180deg)",
@@ -82,11 +82,11 @@ export default function FlashCardStrip() {
                       display: latestCard.isFlipped ? "block" : "none",
                     }}
                   >
-                    <p className="text-lg text-[#FDE68A] font-display font-semibold leading-relaxed">
+                    <p className="text-xl text-[#FDE68A] font-display font-semibold leading-relaxed">
                       {latestCard.back}
                     </p>
                     {latestCard.example && (
-                      <p className="text-sm text-white/35 mt-3 italic font-body">
+                      <p className="text-base text-white/35 mt-4 italic font-body">
                         {latestCard.example}
                       </p>
                     )}

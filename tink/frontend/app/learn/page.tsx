@@ -219,13 +219,19 @@ function LearnPageInner() {
         }}
       >
         <div className="flex items-center gap-3">
-          <div className="w-8 h-8 rounded-full flex items-center justify-center"
+          <div className="w-8 h-8 rounded-full relative overflow-hidden"
             style={{
               background: "linear-gradient(145deg, #F59E0B, #F97316)",
               boxShadow: "0 2px 12px rgba(245,158,11,0.3)",
             }}
           >
-            <span className="text-white text-xs font-bold font-display">T</span>
+            {/* Mini mascot eyes */}
+            <div className="absolute top-[36%] left-1/2 -translate-x-1/2 flex gap-[4px]">
+              <div className="w-[4px] h-[5px] bg-[#1C1917] rounded-[1.5px]" />
+              <div className="w-[4px] h-[5px] bg-[#1C1917] rounded-[1.5px]" />
+            </div>
+            {/* Mini mascot mouth */}
+            <div className="absolute top-[60%] left-1/2 -translate-x-1/2 w-[4px] h-[2px] border-b border-[#1C1917]/50 rounded-b-full" />
           </div>
           <div>
             <h1 className="text-sm font-bold text-white leading-tight font-display">
@@ -293,22 +299,47 @@ function LearnPageInner() {
           </motion.div>
         )}
 
-        {/* Compact Mascot + Waveform row */}
-        <div className="flex items-center justify-center gap-4 py-2">
-          <MascotOrb />
-          <Waveform
-            micAnalyser={voice.micAnalyser}
-            speakerAnalyser={voice.speakerAnalyser}
-          />
+        {/* Two-column layout: Mascot left, Cards right */}
+        <div className="flex-1 flex flex-col md:flex-row min-h-0">
+          {/* Left column — Mascot + Waveform + Transcript */}
+          <div className="flex flex-col items-center justify-center gap-3 py-4 md:w-[35%] md:py-0">
+            <MascotOrb />
+            <Waveform
+              micAnalyser={voice.micAnalyser}
+              speakerAnalyser={voice.speakerAnalyser}
+            />
+            <TranscriptPanel />
+          </div>
+
+          {/* Vertical separator — glowing amber line */}
+          <div className="hidden md:flex flex-col items-center py-8">
+            <div className="w-px flex-1 rounded-full" style={{
+              background: "linear-gradient(to bottom, transparent, rgba(245,158,11,0.3) 30%, rgba(245,158,11,0.15) 70%, transparent)",
+            }} />
+            <div className="w-1.5 h-1.5 rounded-full my-2" style={{
+              background: "#F59E0B",
+              boxShadow: "0 0 8px rgba(245,158,11,0.5)",
+            }} />
+            <div className="w-px flex-1 rounded-full" style={{
+              background: "linear-gradient(to top, transparent, rgba(245,158,11,0.3) 30%, rgba(245,158,11,0.15) 70%, transparent)",
+            }} />
+          </div>
+
+          {/* Right column — Flashcard / Quiz */}
+          <div className="flex-1 flex flex-col min-h-0 px-4">
+            {/* Section header */}
+            <div className="flex items-center gap-2 pt-4 pb-2 px-2">
+              <div className="w-1 h-4 rounded-full" style={{ background: "linear-gradient(to bottom, #F59E0B, #F97316)" }} />
+              <span className="text-xs font-medium text-white/40 uppercase tracking-[0.15em] font-body">Lesson Notes</span>
+              <div className="flex-1 h-px ml-2" style={{ background: "linear-gradient(to right, rgba(255,255,255,0.08), transparent)" }} />
+            </div>
+            {/* Card area */}
+            <div className="flex-1 flex items-center justify-center min-h-0">
+              <FlashCardStrip />
+            </div>
+          </div>
         </div>
 
-        {/* Center Stage — Flashcard / Quiz (main visual) */}
-        <div className="flex-1 flex items-center justify-center min-h-0 px-4">
-          <FlashCardStrip />
-        </div>
-
-        {/* Subtitle — Tink's speech as closed captions */}
-        <TranscriptPanel />
       </div>
 
       {/* Bottom Controls */}
