@@ -2,7 +2,7 @@
   <img src="Tink.svg" alt="Tink Logo" width="120" />
 </p>
 
-<h1 align="center">Tink — Think. Learn. Grow.</h1>
+<h1 align="center">Tink — Speak. Learn. Grow.</h1>
 
 <p align="center">
   An AI-powered voice tutoring platform that teaches any topic through real-time conversation, flashcards, and quizzes — powered by Gemini 2.5 Flash Native Audio and Google ADK.
@@ -113,6 +113,7 @@ You can interrupt Tink anytime (barge-in), ask follow-up questions, or request r
 - Python 3.11+
 - Node.js 20+
 - A [Google AI Studio](https://aistudio.google.com/) API key (Gemini)
+- [Google Cloud SDK](https://cloud.google.com/sdk/docs/install) (for Cloud Run deployment)
 
 ### 1. Clone the repository
 
@@ -143,7 +144,17 @@ python main.py
 
 The backend runs on `http://localhost:8000`.
 
-### 3. Frontend Setup
+### 3. Deploy Backend to Google Cloud Run
+
+The backend is deployed to Google Cloud Run. Use the included deploy script:
+
+```bash
+./deploy.sh
+```
+
+This deploys the backend to Cloud Run. The frontend is pre-configured to connect to the Cloud Run URL via `tink/frontend/.env.local`.
+
+### 4. Frontend Setup
 
 ```bash
 cd tink/frontend
@@ -155,9 +166,9 @@ npm install
 npm run dev
 ```
 
-The frontend runs on `http://localhost:3000`.
+The frontend runs on `http://localhost:3000` and connects to the Cloud Run backend automatically.
 
-### 4. Use the app
+### 5. Use the app
 
 1. Open `http://localhost:3000` in your browser
 2. Enter your name and choose a topic
