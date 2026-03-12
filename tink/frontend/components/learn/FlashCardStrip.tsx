@@ -82,9 +82,6 @@ export default function FlashCardStrip() {
                       display: latestCard.isFlipped ? "block" : "none",
                     }}
                   >
-                    <p className="text-[10px] uppercase tracking-[0.15em] text-[#F59E0B]/60 font-body mb-3">
-                      Tanim
-                    </p>
                     <p className="text-lg text-[#FDE68A] font-display font-semibold leading-relaxed">
                       {latestCard.back}
                     </p>

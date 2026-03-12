@@ -77,7 +77,7 @@ npm install
 npm run dev
 ```
 
-The frontend runs on `http://localhost:3000` and connects to the local backend automatically.
+The frontend runs on `http://localhost:3000` and connects to the backend automatically.
 
 ### 4. Use the app
 
@@ -86,20 +86,6 @@ The frontend runs on `http://localhost:3000` and connects to the local backend a
 3. Select a difficulty level — Tink generates a curriculum
 4. Click a lesson to start a voice session
 5. Allow microphone access and start learning!
-
-### Cloud Run Deployment
-
-To deploy the backend to Google Cloud Run (requires [Google Cloud SDK](https://cloud.google.com/sdk/docs/install)):
-
-```bash
-./deploy.sh
-```
-
-To point the frontend to Cloud Run instead of localhost, create `tink/frontend/.env.local`:
-
-```
-NEXT_PUBLIC_API_URL=https://your-cloud-run-url.run.app
-```
 
 ### Environment Variables
 
@@ -112,11 +98,25 @@ NEXT_PUBLIC_API_URL=https://your-cloud-run-url.run.app
 | `FRONTEND_URL` | Frontend origin for CORS | No (default: `http://localhost:3000`) |
 | `PORT` | Backend port | No (default: `8000`) |
 
-**Frontend** (`tink/frontend/.env.local`):
+**Frontend** (optional `tink/frontend/.env.local`):
 
 | Variable | Description | Required |
 |----------|-------------|----------|
 | `NEXT_PUBLIC_API_URL` | Backend API URL | No (default: `http://localhost:8000`) |
+
+## Cloud Run Deployment
+
+To deploy the backend to Google Cloud Run (requires [Google Cloud SDK](https://cloud.google.com/sdk/docs/install)):
+
+```bash
+./deploy.sh
+```
+
+To point the frontend to Cloud Run, create `tink/frontend/.env.local`:
+
+```
+NEXT_PUBLIC_API_URL=https://your-cloud-run-url.run.app
+```
 
 ## Architecture
 
