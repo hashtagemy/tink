@@ -28,84 +28,6 @@ Pick any topic (Python, Japanese, Biology, Economics...), choose your level, and
 
 You can interrupt Tink anytime (barge-in), ask follow-up questions, or request re-explanations — just like a real tutor.
 
-## Architecture
-
-```
-┌─────────────────────────────────────────────────────────┐
-│                      Frontend                           │
-│              Next.js + React + Zustand                  │
-│                                                         │
-│  ┌──────────┐  ┌───────────┐  ┌──────────┐  ┌────────┐│
-│  │ Home     │  │ Roadmap   │  │ Learn    │  │ Notes  ││
-│  │ (Topic   │→ │ (Curriculum│→ │ (Voice   │→ │(Review)││
-│  │ Select)  │  │  Lessons) │  │  Session)│  │        ││
-│  └──────────┘  └───────────┘  └──────────┘  └────────┘│
-│                                    │                    │
-│                          WebSocket (Audio + JSON)       │
-└────────────────────────────┬────────────────────────────┘
-                             │
-                             ▼
-┌─────────────────────────────────────────────────────────┐
-│                   Backend (FastAPI)                      │
-│                  Google Cloud Run                        │
-│                                                         │
-│  ┌──────────────┐    ┌──────────────────────────────┐  │
-│  │ REST API     │    │ WebSocket /api/live/{id}     │  │
-│  │              │    │                              │  │
-│  │ POST /api/   │    │  ┌────────────────────────┐  │  │
-│  │  curriculum/ │    │  │  Google ADK Runner     │  │  │
-│  │  generate    │    │  │                        │  │  │
-│  │              │    │  │  Agent: Tink Tutor     │  │  │
-│  │ POST /api/   │    │  │  ┌──────────────────┐  │  │  │
-│  │  session/    │    │  │  │ Tools:           │  │  │  │
-│  │  create      │    │  │  │ • show_flashcard │  │  │  │
-│  │              │    │  │  │ • quiz_student   │  │  │  │
-│  │ GET /api/    │    │  │  │ • lesson_complete│  │  │  │
-│  │  session/{id}│    │  │  └──────────────────┘  │  │  │
-│  └──────────────┘    │  └────────────────────────┘  │  │
-│                      │              │               │  │
-│                      └──────────────┼───────────────┘  │
-│                                     │                   │
-└─────────────────────────────────────┼───────────────────┘
-                                      │
-                                      ▼
-                        ┌──────────────────────────┐
-                        │    Gemini 2.5 Flash      │
-                        │    Native Audio          │
-                        │                          │
-                        │  • Real-time voice I/O   │
-                        │  • Barge-in support      │
-                        │  • Tool calling          │
-                        │  • Context-aware dialog  │
-                        └──────────────────────────┘
-```
-
-## Tech Stack
-
-| Layer | Technology |
-|-------|-----------|
-| **AI Model** | Gemini 2.5 Flash Native Audio (voice), Gemini 2.5 Flash (text) |
-| **Agent Framework** | Google ADK (Agent Development Kit) |
-| **Backend** | Python, FastAPI, WebSockets |
-| **Frontend** | Next.js 16, React 19, TypeScript |
-| **State Management** | Zustand (persisted to localStorage) |
-| **UI** | Tailwind CSS, Framer Motion |
-| **Audio** | Web Audio API, AudioWorklet (16kHz PCM) |
-| **Cloud** | Google Cloud Run |
-
-## Features
-
-- **Voice-first interaction** — Talk naturally, get spoken responses in real-time
-- **Barge-in support** — Interrupt Tink anytime, just like a real conversation
-- **AI-generated curriculum** — Structured lessons with concepts, organized by difficulty
-- **Interactive flashcards** — Visual cards shown during voice lessons
-- **Adaptive quizzes** — Multiple-choice questions after every few concepts
-- **Progress tracking** — Lesson completion, notes, and quiz history saved locally
-- **Auto-reconnect** — Seamless session recovery with context preservation
-- **Live transcript** — Real-time captions of the conversation
-- **Three difficulty tiers** — Beginner, Intermediate, Advanced with progressive unlock
-- **Notes review** — Flip through all flashcards and quiz answers after lessons
-
 ## Getting Started
 
 ### Prerequisites
@@ -192,6 +114,84 @@ The frontend runs on `http://localhost:3000` and connects to the Cloud Run backe
 | Variable | Description | Required |
 |----------|-------------|----------|
 | `NEXT_PUBLIC_API_URL` | Backend API URL | No (default: `http://localhost:8000`) |
+
+## Architecture
+
+```
+┌─────────────────────────────────────────────────────────┐
+│                      Frontend                           │
+│              Next.js + React + Zustand                  │
+│                                                         │
+│  ┌──────────┐  ┌───────────┐  ┌──────────┐  ┌────────┐│
+│  │ Home     │  │ Roadmap   │  │ Learn    │  │ Notes  ││
+│  │ (Topic   │→ │ (Curriculum│→ │ (Voice   │→ │(Review)││
+│  │ Select)  │  │  Lessons) │  │  Session)│  │        ││
+│  └──────────┘  └───────────┘  └──────────┘  └────────┘│
+│                                    │                    │
+│                          WebSocket (Audio + JSON)       │
+└────────────────────────────┬────────────────────────────┘
+                             │
+                             ▼
+┌─────────────────────────────────────────────────────────┐
+│                   Backend (FastAPI)                      │
+│                  Google Cloud Run                        │
+│                                                         │
+│  ┌──────────────┐    ┌──────────────────────────────┐  │
+│  │ REST API     │    │ WebSocket /api/live/{id}     │  │
+│  │              │    │                              │  │
+│  │ POST /api/   │    │  ┌────────────────────────┐  │  │
+│  │  curriculum/ │    │  │  Google ADK Runner     │  │  │
+│  │  generate    │    │  │                        │  │  │
+│  │              │    │  │  Agent: Tink Tutor     │  │  │
+│  │ POST /api/   │    │  │  ┌──────────────────┐  │  │  │
+│  │  session/    │    │  │  │ Tools:           │  │  │  │
+│  │  create      │    │  │  │ • show_flashcard │  │  │  │
+│  │              │    │  │  │ • quiz_student   │  │  │  │
+│  │ GET /api/    │    │  │  │ • lesson_complete│  │  │  │
+│  │  session/{id}│    │  │  └──────────────────┘  │  │  │
+│  └──────────────┘    │  └────────────────────────┘  │  │
+│                      │              │               │  │
+│                      └──────────────┼───────────────┘  │
+│                                     │                   │
+└─────────────────────────────────────┼───────────────────┘
+                                      │
+                                      ▼
+                        ┌──────────────────────────┐
+                        │    Gemini 2.5 Flash      │
+                        │    Native Audio          │
+                        │                          │
+                        │  • Real-time voice I/O   │
+                        │  • Barge-in support      │
+                        │  • Tool calling          │
+                        │  • Context-aware dialog  │
+                        └──────────────────────────┘
+```
+
+## Tech Stack
+
+| Layer | Technology |
+|-------|-----------|
+| **AI Model** | Gemini 2.5 Flash Native Audio (voice), Gemini 2.5 Flash (text) |
+| **Agent Framework** | Google ADK (Agent Development Kit) |
+| **Backend** | Python, FastAPI, WebSockets |
+| **Frontend** | Next.js 16, React 19, TypeScript |
+| **State Management** | Zustand (persisted to localStorage) |
+| **UI** | Tailwind CSS, Framer Motion |
+| **Audio** | Web Audio API, AudioWorklet (16kHz PCM) |
+| **Cloud** | Google Cloud Run |
+
+## Features
+
+- **Voice-first interaction** — Talk naturally, get spoken responses in real-time
+- **Barge-in support** — Interrupt Tink anytime, just like a real conversation
+- **AI-generated curriculum** — Structured lessons with concepts, organized by difficulty
+- **Interactive flashcards** — Visual cards shown during voice lessons
+- **Adaptive quizzes** — Multiple-choice questions after every few concepts
+- **Progress tracking** — Lesson completion, notes, and quiz history saved locally
+- **Auto-reconnect** — Seamless session recovery with context preservation
+- **Live transcript** — Real-time captions of the conversation
+- **Three difficulty tiers** — Beginner, Intermediate, Advanced with progressive unlock
+- **Notes review** — Flip through all flashcards and quiz answers after lessons
 
 ## Project Structure
 
