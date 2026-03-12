@@ -25,6 +25,8 @@ flowchart LR
         Text["Gemini 2.5 Flash\nText"]
     end
 
+    Search["🔍 Google Search\nGrounding"]
+
     Mic -- "16kHz PCM Audio" --> API
     API -- "24kHz PCM Audio" --> Speaker
     UI <-- "REST API\n(Curriculum, Sessions)" --> API
@@ -32,10 +34,13 @@ flowchart LR
     API <--> ADK
     ADK <-- "Streaming Audio\n+ Tool Calls" --> Live
     API -- "Curriculum\nGeneration" --> Text
+    Text -- "Search for\nreliable sources" --> Search
+    Search -- "Grounded\nresearch" --> Text
 
     style Client fill:#FFF7ED,stroke:#F59E0B,stroke-width:2px,color:#000
     style Cloud fill:#F0FDF4,stroke:#22C55E,stroke-width:2px,color:#000
     style Gemini fill:#EFF6FF,stroke:#3B82F6,stroke-width:2px,color:#000
+    style Search fill:#FEF3C7,stroke:#F59E0B,stroke-width:2px,color:#000
 ```
 
 ## Detailed Voice Session Flow
@@ -48,11 +53,17 @@ sequenceDiagram
     participant A as 🔧 ADK Agent
     participant G as 🤖 Gemini Live
 
-    Note over S,G: 1. Session Setup
+    participant GS as 🔍 Google Search
+
+    Note over S,GS: 1. Session Setup (with Grounding)
     S->>B: Select topic & lesson
     B->>F: POST /api/curriculum/generate
-    F->>G: Generate curriculum (Text API)
-    G-->>F: Lesson plan JSON
+    F->>G: Research topic (Text API + Grounding)
+    G->>GS: Search for reliable sources
+    GS-->>G: Authoritative results
+    G-->>F: Grounded research summary
+    F->>G: Generate curriculum from research
+    G-->>F: Source-backed lesson plan JSON
     F-->>B: Curriculum response
     B->>F: POST /api/session/create
     F-->>B: session_id

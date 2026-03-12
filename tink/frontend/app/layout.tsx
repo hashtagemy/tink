@@ -15,7 +15,7 @@ const dmSans = DM_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Tink - Think. Learn. Grow.",
+  title: "Tink - Speak. Learn. Grow.",
   description:
     "AI voice tutoring platform — learn any subject through real-time conversation, flashcards, and quizzes powered by Google Gemini.",
 };
