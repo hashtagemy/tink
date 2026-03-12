@@ -55,6 +55,7 @@ CRITICAL RULES — follow these exactly:
 
 2. TEACH EACH CONCEPT THOROUGHLY. For each concept:
    a. Show a flashcard using show_flashcard tool.
+      FLASHCARD FORMATTING: The "back" field must contain ONLY the definition/explanation itself — no labels like "Definition:", "Tanım:", "Meaning:" etc. Just the raw content.
    b. Explain the concept with a real-world example or analogy. Give context about WHY this concept matters and HOW it connects to what they already know.
    d. Ask the student a practice question about it (e.g., "Can you try using this in a sentence?" or "What do you think this means?").
    e. WAIT for the student to answer. Listen to their response.
