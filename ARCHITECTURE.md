@@ -6,41 +6,37 @@ Use this at [mermaid.live](https://mermaid.live) to generate the visual diagram 
 
 ```mermaid
 flowchart LR
-    subgraph Client["🌐 Browser"]
-        direction TB
-        UI["Next.js Frontend\nReact + TypeScript"]
-        Mic["🎤 Microphone"]
-        Speaker["🔊 Speaker"]
-    end
+    Student["🎙️ Student\n16kHz PCM Audio"]
 
-    subgraph Cloud["☁️ Google Cloud Run"]
-        direction TB
-        API["FastAPI Backend"]
-        ADK["Google ADK\nTink Tutor Agent"]
-    end
+    Frontend["🖥️ Frontend\nNext.js · React · Zustand"]
+    WS["⚡ WebSocket\nReal-time PCM I/O"]
 
-    subgraph Gemini["🤖 Google AI"]
-        direction TB
-        Live["Gemini 2.5 Flash\nNative Audio"]
-        Text["Gemini 2.5 Flash\nText"]
-    end
+    Backend["⚙️ Backend\nFastAPI · Cloud Run"]
 
+    ADK["🤖 Google ADK\nAgent Development Kit"]
+    GenAI["🔬 GenAI SDK\nCurriculum Generation"]
+
+    GeminiLive["🗣️ Gemini 2.5 Flash\nLive API · Native Audio"]
+    GeminiText["📝 Gemini 2.5 Flash\nText API"]
     Search["🔍 Google Search\nGrounding"]
 
-    Mic -- "16kHz PCM Audio" --> API
-    API -- "24kHz PCM Audio" --> Speaker
-    UI <-- "REST API\n(Curriculum, Sessions)" --> API
-    UI <-- "WebSocket\n(Audio + Tool Calls)" --> API
-    API <--> ADK
-    ADK <-- "Streaming Audio\n+ Tool Calls" --> Live
-    API -- "Curriculum\nGeneration" --> Text
-    Text -- "Search for\nreliable sources" --> Search
-    Search -- "Grounded\nresearch" --> Text
+    Student --> Frontend
+    Student --> WS
+    Frontend --> Backend
+    WS --> Backend
+    Backend --> ADK --> GeminiLive
+    Backend --> GenAI --> GeminiText
+    GenAI --> Search
 
-    style Client fill:#FFF7ED,stroke:#F59E0B,stroke-width:2px,color:#000
-    style Cloud fill:#F0FDF4,stroke:#22C55E,stroke-width:2px,color:#000
-    style Gemini fill:#EFF6FF,stroke:#3B82F6,stroke-width:2px,color:#000
-    style Search fill:#FEF3C7,stroke:#F59E0B,stroke-width:2px,color:#000
+    style Student fill:#1e293b,stroke:#475569,color:#fff
+    style Frontend fill:#0c1929,stroke:#1e40af,color:#fff
+    style WS fill:#14210a,stroke:#65a30d,color:#fff
+    style Backend fill:#1a0a2e,stroke:#7c3aed,color:#fff
+    style ADK fill:#1c0a0a,stroke:#dc2626,color:#fff
+    style GenAI fill:#0a1a1c,stroke:#0891b2,color:#fff
+    style GeminiLive fill:#1a1400,stroke:#d97706,color:#fff
+    style GeminiText fill:#0a1a10,stroke:#059669,color:#fff
+    style Search fill:#1a0f00,stroke:#ea580c,color:#fff
 ```
 
 ## Detailed Voice Session Flow
