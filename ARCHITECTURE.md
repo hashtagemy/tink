@@ -2,8 +2,6 @@
 
 ## Main System Architecture
 
-Use this at [mermaid.live](https://mermaid.live) to generate the visual diagram for submission.
-
 ```mermaid
 flowchart LR
     Student["🎙️ Student\n16kHz PCM Audio"]
